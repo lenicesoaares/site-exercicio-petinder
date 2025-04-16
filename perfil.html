@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Perfil - Petinder</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="navbar">
+    <a class="navbar-brand" href="index.html">&#x1F43E; Petinder</a>
+    <div class="navbar-links">
+      <a class="nav-link" href="sobre.html">Sobre</a>
+      <a class="nav-link" href="parceiros.html">ONGs Parceiras</a>
+      <a class="nav-link" href="registre-se.html">Registre-se</a>
+      <a class="nav-link" href="login.html">Login</a>
+      <a id="perfil-link" class="nav-link" href="perfil.html" style="display: none;">Perfil</a>
+    </div>
+  </div>
+
+  <script>
+    if (localStorage.getItem("logado") !== "true") {
+      alert("Acesso negado! Faça login primeiro.");
+      window.location.href = "login.html"; 
+    }
+
+    const usuarioEmail = localStorage.getItem("usuario");
+    document.getElementById("usuario").textContent = usuarioEmail;
+  </script>
+
+  <div class="container">
+    <h2 class="text-center">Bem-vindo ao seu perfil!</h2>
+    <p class="text-center">Veja abaixo suas informações.</p>
+
+    <h3 class="text-center">&#10084; Seus Matches &#10084;</h3>
+    <ul id="lista-matches" class="list-group"></ul>
+
+    <div class="text-center">
+      <button onclick="logout()" class="btn-danger">Sair</button>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.removeItem("logado");
+      localStorage.removeItem("usuario"); 
+      window.location.href = "login.html"; 
+    }
+
+    const lista = document.getElementById('lista-matches');
+    let matches = localStorage.getItem('matches');
+
+    if (!matches) {
+      lista.innerHTML = '<li class="list-group-item">Nenhum match ainda 🐾</li>';
+    } else {
+      matches = matches.split('|'); 
+      matches.forEach((match, index) => {
+        const li = document.createElement('li');
+        li.classList.add('list-group-item');
+        li.textContent = match;
+
+        const btnRemover = document.createElement('button');
+        btnRemover.textContent = "Remover";
+        btnRemover.classList.add("btn", "btn-danger", "ms-2");
+        btnRemover.onclick = () => removerMatch(index); 
+        li.appendChild(btnRemover);
+
+        lista.appendChild(li);
+      });
+    }
+
+    function removerMatch(index) {
+      let matches = localStorage.getItem('matches');
+      matches = matches.split('|'); 
+      
+      matches.splice(index, 1);
+
+      localStorage.setItem('matches', matches.join('|')); 
+
+      atualizarListaMatches();
+    }
+
+    function atualizarListaMatches() {
+      const lista = document.getElementById('lista-matches');
+      lista.innerHTML = ''; 
+
+      let matches = localStorage.getItem('matches');
+      if (!matches) {
+        lista.innerHTML = '<li class="list-group-item">Nenhum match ainda 🐾</li>';
+      } else {
+        matches = matches.split('|'); 
+        matches.forEach((match, index) => {
+          const li = document.createElement('li');
+          li.classList.add('list-group-item');
+          li.textContent = match;
+
+          const btnRemover = document.createElement('button');
+          btnRemover.textContent = "Remover";
+          btnRemover.classList.add("btn", "btn-danger", "ms-2");
+          btnRemover.onclick = () => removerMatch(index); 
+          li.appendChild(btnRemover);
+
+          lista.appendChild(li);
+        });
+      }
+    }
+  </script>
+
+  <footer>
+    <p>© 2023 Petinder - Todos os direitos reservados</p>
+  </footer>
+
+</body>
+</html>

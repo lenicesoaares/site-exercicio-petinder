@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>&#x1F43E; Petinder - Início</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="navbar">
+    <span class="navbar-brand">&#x1F43E; Petinder</span>
+    <div class="navbar-links">
+      <a class="nav-link" href="sobre.html">Sobre</a>
+      <a class="nav-link" href="parceiros.html">ONGs Parceiras</a>
+      <a class="nav-link" href="registre-se.html">Registre-se</a>
+      <a class="nav-link" href="login.html" id="loginLink">Login</a>
+      <a class="nav-link" href="perfil.html" id="perfilLink" style="display: none;">Perfil</a> 
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Um relacionamento para vida toda! &#x1F436;&#x1F431;</h1>
+
+    <div class="row" id="pet-list">
+      <div class="card">
+        <img src="imagens/pet1.jpg" class="card-img-top" alt="Pet 1">
+        <div class="card-body">
+          <h5 class="card-title">Luna</h5>
+          <p class="card-text">Gatinha brincalhona, 2 anos.</p>
+          <button class="btn-primary" onclick="enviarMensagem('Luna', 'Gatinha brincalhona, 2 anos.')">Match</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="imagens/pet2.jpg" class="card-img-top" alt="Pet 2">
+        <div class="card-body">
+          <h5 class="card-title">Alfredo</h5>
+          <p class="card-text">Cachorro amigável, 3 anos.</p>
+          <button class="btn-primary" onclick="enviarMensagem('Alfredo', 'Cachorro amigável, 3 anos.')">Match</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="imagens/pet3.jpg" class="card-img-top" alt="Pet 3">
+        <div class="card-body">
+          <h5 class="card-title">Bolinha</h5>
+          <p class="card-text">Cachorrinho fofo, 5 anos.</p>
+          <button class="btn-primary" onclick="enviarMensagem('Bolinha', 'Cachorrinho fofo, 5 anos.')">Match</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="mensagemAlerta" class="alert" style="display: none;">
+    &#x1F43E; A Petinder entrará em contato nas próximas horas com você! &#x1F43E;
+  </div>
+
+  <script>
+    if (localStorage.getItem("logado") === "true") {
+      document.getElementById("loginLink").style.display = "none";
+      document.getElementById("perfilLink").style.display = "block";
+    } else {
+      document.getElementById("loginLink").style.display = "block";
+      document.getElementById("perfilLink").style.display = "none";
+    }
+
+    function enviarMensagem(nome, descricao) {
+      if (localStorage.getItem("logado") !== "true") {
+        alert("Você precisa estar logado para fazer um match!");
+        return; 
+      }
+
+      const mensagem = document.getElementById('mensagemAlerta');
+      mensagem.style.display = 'block';
+
+      const match = nome + " - " + descricao;
+      let matches = localStorage.getItem('matches');
+
+      if (matches) {
+        matches += "|" + match; 
+      } else {
+        matches = match; 
+      }
+
+      localStorage.setItem('matches', matches); 
+      setTimeout(() => {
+        mensagem.style.display = 'none';
+      }, 5000);
+    }
+  </script>
+
+  <footer>
+    <p>© 2023 Petinder - Todos os direitos reservados</p>
+  </footer>
+
+</body>
+</html>

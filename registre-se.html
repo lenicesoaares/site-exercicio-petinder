@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro - Petinder</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="navbar">
+    <a class="navbar-brand" href="index.html">&#x1F43E; Petinder</a>
+    <div class="navbar-links">
+      <a class="nav-link" href="sobre.html">Sobre</a>
+      <a class="nav-link" href="parceiros.html">ONGs Parceiras</a>
+      <a class="nav-link" href="registre-se.html">Registre-se</a>
+      <a class="nav-link" href="login.html">Login</a>
+      <a id="perfil-link" class="nav-link" href="perfil.html" style="display: none;">Perfil</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2 class="text-center">&#x1F43E; Registre-se &#x1F43E;</h2>
+    <form id="formCadastro" onsubmit="return cadastrarUtilizador()">
+      <div>
+        <label for="nome">Nome Completo</label>
+        <input type="text" id="nome" required>
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div>
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" required>
+      </div>
+      <div>
+        <label for="telefone">Número de Telefone</label>
+        <input type="tel" id="telefone" required>
+      </div>
+      <div>
+        <label for="endereco">Endereço</label>
+        <input type="text" id="endereco" required>
+      </div>
+      <button type="submit" class="btn-primary">&#x1F43E; Cadastrar</button>
+    </form>
+
+    <div id="mensagemSucesso" class="alert" style="display: none;">
+      Cadastrado realizado com sucesso! &#x1F43E;
+    </div>
+  </div>
+
+  <script>
+    function cadastrarUtilizador() {
+      document.getElementById("mensagemSucesso").style.display = "block";
+      document.getElementById("formCadastro").reset();
+      return false;
+    }
+  </script>
+
+  <footer>
+    <p>© 2023 Petinder - Todos os direitos reservados</p>
+  </footer>
+
+</body>
+</html>
