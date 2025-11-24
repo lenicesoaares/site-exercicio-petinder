@@ -52,8 +52,47 @@
 
   <script>
     function cadastrarUtilizador() {
+      // Obter os valores do formulário
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+      const telefone = document.getElementById("telefone").value;
+      const endereco = document.getElementById("endereco").value;
+
+      // Verificar se já existem usuários no localStorage
+      let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
+      
+      // Verificar se o email já está cadastrado
+      const usuarioExistente = usuarios.find(usuario => usuario.email === email);
+      if (usuarioExistente) {
+        alert("Este email já está cadastrado!");
+        return false;
+      }
+
+      // Criar novo usuário
+      const novoUsuario = {
+        nome: nome,
+        email: email,
+        senha: senha,
+        telefone: telefone,
+        endereco: endereco
+      };
+
+      // Adicionar à lista de usuários
+      usuarios.push(novoUsuario);
+      
+      // Salvar no localStorage
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+      // Mostrar mensagem de sucesso
       document.getElementById("mensagemSucesso").style.display = "block";
       document.getElementById("formCadastro").reset();
+      
+      // Redirecionar para login após 2 segundos
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 2000);
+      
       return false;
     }
   </script>
